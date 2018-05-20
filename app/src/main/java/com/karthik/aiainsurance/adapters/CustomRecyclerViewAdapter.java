@@ -36,9 +36,11 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     LinearLayout childViews;
 
     private List<Item> itemList;
+    private boolean isConditionEnabled;
 
-    public CustomRecyclerViewAdapter(List<Item> cList) {
+    public CustomRecyclerViewAdapter(List<Item> cList, boolean isConditionEnabled) {
         this.itemList = cList;
+        this.isConditionEnabled = isConditionEnabled;
     }
 
     @Override
@@ -54,7 +56,15 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
         if(item.getImages() != null && !item.getImages().isEmpty()){
             int index = 0;
             for( ImageDetails imageDetails: item.getImages() ) {
-                inflateChildViews(holder.childViews, imageDetails,item, ""+(index++)+" of "+ valueOf(item.getImages().size()));
+                if (isConditionEnabled) {
+                    if ((imageDetails.getPoints() + imageDetails.getScore() + item.getTopicId()) % 2 == 0) {
+                        inflateChildViews(holder.childViews, imageDetails,item, ""+(index++)+" of "+ valueOf(item.getImages().size()));
+                    } else {
+                        // display no results
+                    }
+                } else {
+                    inflateChildViews(holder.childViews, imageDetails, item, "" + (index++) + " of " + valueOf(item.getImages().size()));
+                }
             }
         } else{
                 if( item.getImages() != null)

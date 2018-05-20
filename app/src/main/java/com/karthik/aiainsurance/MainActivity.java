@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
     public void onToggleClicked(View v) {
         conditionEnabaled = !v.isEnabled();
         v.setEnabled(conditionEnabaled);
-//        mAdapter = new CustomRecyclerViewAdapter(itemList);
-//        mRecyclerView.setAdapter(mAdapter);
+        mAdapter = new CustomRecyclerViewAdapter(itemList, conditionEnabaled);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void performSearch(SearchView searchView) {
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
                     if (response.body() != null) {
                         itemList = response.body().getData().getItems();
-                        mAdapter = new CustomRecyclerViewAdapter(itemList);
+                        mAdapter = new CustomRecyclerViewAdapter(itemList, conditionEnabaled);
                         mRecyclerView.setAdapter(mAdapter);
                     }
                 }
