@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     public void onToggleClicked(View v) {
         conditionEnabaled = !v.isEnabled();
         v.setEnabled(conditionEnabaled);
-        mAdapter = new CustomRecyclerViewAdapter(itemList);
-        mRecyclerView.setAdapter(mAdapter);
+//        mAdapter = new CustomRecyclerViewAdapter(itemList);
+//        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void performSearch(SearchView searchView) {
