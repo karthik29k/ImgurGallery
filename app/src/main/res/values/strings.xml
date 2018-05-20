@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AIAInsurance</string>
+    <string name="enable_condition">Enable search with condition</string>
+    <string name="textview">TextView</string>
+</resources>
