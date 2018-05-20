@@ -14,8 +14,8 @@ It contains a couple UI and unit tests (with 100% code coverage), they can be ra
 6. Run
 
 ### Running unit tests
-1. At the Project tab right click the folder containing the tests (i.e. "com.karthik.gallery (test)")
-2. select Run 'Tests in 'com.karthik.galleryr...' to run all the tests
+1. At the Project tab right click the folder containing the tests (i.e. "com.karthik.aiainsurance (test)")
+2. select Run 'Tests in 'com.karthik.aiainsurance...' to run all the tests
 3. if you are on Linux or Mac, go to Run -> Edit Configurations, select the new JUnit configuration and change the "Working Directory" item to "$MODULE_DIR$" (without quotes)
 4. OK
 5. Run
