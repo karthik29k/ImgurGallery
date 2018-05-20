@@ -10,14 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.karthik.aiainsurance.R;
+import com.karthik.aiainsurance.domain.ImageDetails;
+import com.karthik.aiainsurance.domain.Item;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.karthik.aiainsurance.domain.ImageDetails;
-import com.karthik.aiainsurance.domain.Item;
 
 import static java.lang.String.valueOf;
 
@@ -35,28 +35,30 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     @BindView(R.id.ChildViews)
     LinearLayout childViews;
 
-    private List<Item> List;
+    private List<Item> itemList;
 
     public CustomRecyclerViewAdapter(List<Item> cList) {
-        this.List = cList;
+        this.itemList = cList;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        Item item = List.get(position);
+        Item item = itemList.get(position);
 
         holder.title.setText(item.getTitle());
         holder.date.setText(valueOf(item.getDatetime()));
-        holder.viewmoreimages.setText("1 of " + valueOf(item.getImages().size()));
+        if(item.getImages() != null)
+            holder.viewmoreimages.setText("1 of " + valueOf(item.getImages().size()));
 
 
-        if(!item.getImages().isEmpty()){
+        if(item.getImages() != null && !item.getImages().isEmpty()){
             int index = 0;
             for( ImageDetails imageDetails: item.getImages() ) {
                 inflateChildViews(holder.childViews, imageDetails,item, ""+(index++)+" of "+ valueOf(item.getImages().size()));
             }
         } else{
-                Picasso.get().load(item.getImages().get(0).getLink()).into(holder.image);
+                if( item.getImages() != null)
+                    Picasso.get().load(item.getImages().get(0).getLink()).into(holder.image);
         }
 
     }
@@ -70,7 +72,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
 
     @Override
     public int getItemCount() {
-        return List.size();
+        return itemList.size();
     }
 
     private void inflateChildViews(LinearLayout parent, ImageDetails img, Item item, String totaimg){

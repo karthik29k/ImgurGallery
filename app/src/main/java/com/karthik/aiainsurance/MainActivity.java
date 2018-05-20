@@ -8,13 +8,18 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.View;
 
+import com.karthik.aiainsurance.adapters.CustomRecyclerViewAdapter;
+import com.karthik.aiainsurance.domain.Item;
+import com.karthik.aiainsurance.repository.RestServiceBuilder;
+import com.karthik.aiainsurance.repository.SearchApi.SearchApiDao;
+import com.karthik.aiainsurance.repository.SearchApi.SearchResponse;
+
 import java.util.List;
 
-import com.karthik.aiainsurance.adapters.CustomRecyclerViewAdapter;
-import butterknife.BindView;
 import butterknife.OnClick;
-import com.karthik.aiainsurance.domain.Item;
-import com.karthik.aiainsurance.interactor.SearchInteractor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -56,9 +61,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                itemList = new SearchInteractor().getData(query);
-                mAdapter = new CustomRecyclerViewAdapter(itemList);
-                mRecyclerView.setAdapter(mAdapter);
+                getData(query);
                 return false;
             }
 
@@ -67,5 +70,29 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void getData(String data){
+        try {
+            SearchApiDao searchApiDao = RestServiceBuilder.create().create(SearchApiDao.class);
+            Call<SearchResponse> call = searchApiDao.getResult(data);
+            call.enqueue(new Callback<SearchResponse>() {
+                @Override
+                public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+                    if (response.body() != null) {
+                        itemList = response.body().getData().getItems();
+                        mAdapter = new CustomRecyclerViewAdapter(itemList);
+                        mRecyclerView.setAdapter(mAdapter);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SearchResponse> call, Throwable t) {
+                    call.cancel();
+                }
+            });
+        }catch (Throwable ex){
+            ex.printStackTrace();
+        }
     }
 }
