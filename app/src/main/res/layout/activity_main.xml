@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:padding="5dp"
+        android:padding="17dp"
         >
 
         <TextView
@@ -41,6 +41,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/topBar"
+        android:paddingTop="10dp"
         android:scrollbars="vertical" />
 
 </RelativeLayout>

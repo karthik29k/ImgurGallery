@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">AIAInsurance</string>
-    <string name="enable_condition">Enable search with condition</string>
-    <string name="textview">TextView</string>
+    <string name="app_name">Image Gallery</string>
+    <string name="enable_condition">Enable Search</string>
+    <string name="title">title</string>
+    <string name="date">25/12/2017</string>
+    <string name="moreImages">1 of 3</string>
 </resources>
