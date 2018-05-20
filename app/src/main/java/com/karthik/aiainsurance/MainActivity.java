@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     call.cancel();
                 }
             });
-        }catch (Throwable ex){
+        } catch (Throwable ex){
             ex.printStackTrace();
         }
     }
